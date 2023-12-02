@@ -3,7 +3,7 @@ import os
 file_path = os.path.join('day_1', 'input')
 
 
-def exo_1() -> None:
+def exo_1() -> int:
     total_sum = 0
     with open(file_path, 'r') as file:
         for line in file:
