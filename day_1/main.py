@@ -18,31 +18,45 @@ def exo_1() -> int:
     return total_sum
 
 
+"""
+Possible optimization by passing to the next base_index
+when the start does not match any digit name
+"""
 def get_first_char(line: str, digit_mapping: dict) -> int:
     base_index, total_sum = 0, 0
-
+    # No matching digit name with length < 3
     while base_index < len(line) - 2:
         key = ""
+        # Iterates 5 characters by 5 characters from the beginning (digit name length <= 5)
         for explor_index, char in enumerate(line[base_index:min(base_index + 5, len(line))]):
-            if len(key) <= 3 and char.isdigit():
-                return int(char) * 10
             key += char
+            # ex: in 'pwd3' no need to iterate over 'wd3' and then 'd3' to finally find '3'
+            if len(key) <= 4 and char.isdigit():
+                return int(char) * 10
+            # No matching digit name with length < 3
             if len(key) > 2 and key in digit_mapping:
                 return digit_mapping[key] * 10
         base_index += 1
     return total_sum
 
 
+"""
+Possible optimization by passing to the next base_index
+when the start does not match any digit name
+"""
 def get_last_char(line: str, digit_mapping: dict) -> int:
     base_index, total_sum = len(line), 0
-
-    while base_index > 0:
+    # No matching digit name with length < 3
+    while base_index > 2:
         key = ""
+        # Iterates 5 characters by 5 characters from the end (digit name length <= 5)
         for explor_index in range(max(0, base_index - 6), base_index - 1)[::-1]:
             char = line[explor_index]
-            if len(key) <= 3 and char.isdigit():
-                return int(char)
             key = char + key
+            # ex: in 'pwd3' no need to iterate over 'wd3' and then 'd3' to finally find '3'
+            if len(key) <= 4 and char.isdigit():
+                return int(char)
+            # No matching digit name with length < 3
             if len(key) > 2 and key in digit_mapping:
                 return digit_mapping[key]
         base_index -= 1
