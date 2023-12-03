@@ -3,7 +3,7 @@ import os
 file_path = os.path.join('day_3', 'input')
 
 
-def match_pos_with_number(position_index: int, index_ref_to_number: dict, numbers: list) -> int:
+def get_matching_number_at_position(position_index: int, index_ref_to_number: dict, numbers: list) -> int:
     if position_index in index_ref_to_number:
         number_index = index_ref_to_number[position_index]
         if not numbers[number_index][1]:
@@ -15,9 +15,9 @@ def match_pos_with_number(position_index: int, index_ref_to_number: dict, number
 def sum_matching_numbers(symbol_metadata: list, index_ref_to_number: dict, numbers: list) -> int:
     total_sum = 0
     for index_symbol in symbol_metadata:
-        total_sum += match_pos_with_number(index_symbol - 1, index_ref_to_number, numbers)
-        total_sum += match_pos_with_number(index_symbol + 1, index_ref_to_number, numbers)
-        total_sum += match_pos_with_number(index_symbol, index_ref_to_number, numbers)
+        total_sum += get_matching_number_at_position(index_symbol - 1, index_ref_to_number, numbers)
+        total_sum += get_matching_number_at_position(index_symbol + 1, index_ref_to_number, numbers)
+        total_sum += get_matching_number_at_position(index_symbol, index_ref_to_number, numbers)
     return total_sum
 
 
@@ -89,7 +89,7 @@ def find_numbers_matching_stars(symbol_metadata: dict, line_id: int,
         match_star_with_number(symbol_data[0] + 1, line_id, symbol_data, index_ref_to_number, numbers)
 
 
-def save_line_numbers(line: str, index_ref_to_number: dict,
+def parse_line_numbers(line: str, index_ref_to_number: dict,
                       line_numbers: list, symbol_indexes: list) -> None:
     index_number = 0
     constructing_number = False
@@ -132,7 +132,7 @@ def exo_2():
             index_ref_to_number = {}
             line_numbers = []
 
-            save_line_numbers(line, index_ref_to_number, line_numbers, symbol_indexes[line_id])
+            parse_line_numbers(line, index_ref_to_number, line_numbers, symbol_indexes[line_id])
 
             find_numbers_matching_stars(symbol_indexes, line_id, index_ref_to_number, line_numbers)
             find_numbers_matching_stars(symbol_indexes, line_id - 1, index_ref_to_number, line_numbers)
