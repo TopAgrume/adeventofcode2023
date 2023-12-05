@@ -90,7 +90,7 @@ def exo_2():
                 results.append([start_range + offset, end_range + offset])
                 break
             else:
-                # Save non matching for next mapping
+                # Save non-matching for next mapping
                 results.append([start_range, end_range])
 
         ranges = results
