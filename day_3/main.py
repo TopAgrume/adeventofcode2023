@@ -4,11 +4,12 @@ file_path = os.path.join('day_3', 'input')
 
 
 def get_matching_number_at_position(position_index: int, index_ref_to_number: dict, numbers: list) -> int:
-    if position_index in index_ref_to_number:
-        number_index = index_ref_to_number[position_index]
-        if not numbers[number_index][1]:
-            numbers[number_index][1] = True
-            return numbers[number_index][0]
+    if position_index not in index_ref_to_number:
+        return 0
+    number_index = index_ref_to_number[position_index]
+    if not numbers[number_index][1]:
+        numbers[number_index][1] = True
+        return numbers[number_index][0]
     return 0
 
 
@@ -69,14 +70,15 @@ def exo_1():
     return total_sum
 
 
-def match_star_with_number(position_index: int, line_id: int,
-                           symbol_data: list, index_ref_to_number: dict, numbers: list) -> bool:
-    if position_index in index_ref_to_number:
-        number_data = numbers[index_ref_to_number[position_index]]
-        if len(number_data) == 1 or number_data[1] != line_id or number_data[2] != symbol_data[0]:
-            number_data.append(line_id)
-            number_data.append(symbol_data[0])
-            symbol_data.append(number_data[0])
+def match_star_with_number(position_index: int, line_id: int, symbol_data: list,
+                           index_ref_to_number: dict, numbers: list) -> bool:
+    if position_index not in index_ref_to_number:
+        return False
+    number_data = numbers[index_ref_to_number[position_index]]
+    if len(number_data) == 1 or number_data[1] != line_id or number_data[2] != symbol_data[0]:
+        number_data.append(line_id)
+        number_data.append(symbol_data[0])
+        symbol_data.append(number_data[0])
         return True
     return False
 
