@@ -4,11 +4,11 @@ import re
 file_path = os.path.join('day_6', 'input')
 
 
-def compute_distance(waiting: int, full_time: int):
+def compute_distance(waiting: int, full_time: int) -> int:
     return waiting * (full_time - waiting)
 
 
-def binary_search(time, target):
+def binary_search(time: int, target: int) -> int:
     low, high = 0, (time + 1) // 2
 
     while low <= high:
